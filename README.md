@@ -14,9 +14,27 @@ Reference implementation for "Designing a Secure Rare Disease Data-Sharing Platf
 
 ## Environment
 
-- Ubuntu 20.04 LTS · Python 3.8
-- NVIDIA Tesla V100 (32GB VRAM) · CUDA 11.0
-- Hyperledger Fabric v2.2· CouchDB v3.1· Caliper v0.4.2
+All components were developed and evaluated on:
+
+- Ubuntu 20.04 LTS
+- Python 3.8
+- CUDA 11.0, NVIDIA Tesla V100 (32 GB)
+- Hyperledger Fabric v2.2, CouchDB v3.1
+- Hyperledger Caliper v0.4.2
+- Node.js 14.x, Go 1.16
+
+## Python setup
+
+```bash
+python -m venv venv
+source venv/bin/activate
+
+# CPU-only:
+pip install -r requirements.txt
+
+# GPU (CUDA 11.0) — install torch first from the official index:
+pip install torch==1.7.1+cu110 -f https://download.pytorch.org/whl/torch_stable.html
+pip install -r requirements.txt
 
 ## Installation
 
