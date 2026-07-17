@@ -1,0 +1,26 @@
+# Caliper network configuration for benchmarking the data-sharing chaincode.
+# Target: Hyperledger Caliper v0.4.2 with the fabric connector, against the
+# Fabric v2.2 test network deployed by ../network/deploy_network.sh.
+name: rare-disease-caliper-network
+version: "2.0.0"
+
+caliper:
+  blockchain: fabric
+
+channels:
+  - channelName: mychannel
+    contracts:
+      - id: data_sharing_cc
+
+organizations:
+  - mspid: Org1MSP
+    identities:
+      certificates:
+        - name: User1
+          clientPrivateKey:
+            path: ${FABRIC_SAMPLES}/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk
+          clientSignedCert:
+            path: ${FABRIC_SAMPLES}/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem
+    connectionProfile:
+      path: ../network/connection-org1.yaml
+      discover: true
