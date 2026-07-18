@@ -1,0 +1,40 @@
+# Caliper benchmark configuration.
+# Two rounds exercise the write (CreateAsset) and read (ReadAsset) paths under
+# a fixed transaction rate, matching the throughput evaluation in the study.
+test:
+  name: data-sharing-benchmark
+  description: Throughput and latency benchmark for the data-sharing chaincode.
+  workers:
+    number: 5
+  rounds:
+    - label: create-asset
+      description: Submit new data-sharing assets.
+      txNumber: 10000
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 1000
+      workload:
+        module: workload/submitData.js
+        arguments:
+          mode: create
+
+    - label: read-asset
+      description: Query existing data-sharing assets.
+      txNumber: 10000
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 1000
+      workload:
+        module: workload/submitData.js
+        arguments:
+          mode: read
+
+monitors:
+  resource:
+    - module: docker
+      options:
+        interval: 5
+        containers:
+          - all
